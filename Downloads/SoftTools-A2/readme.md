@@ -21,18 +21,19 @@ The objectives of this project are:
 
 The dataset contains Airbnb listing information such as:
 
-- Listing and host identifiers
-- Listing name and host name
+- Listing id, name, host_id and host_name
 - Neighbourhood and neighbourhood group
 - Latitude and longitude
 - Room type
 - Minimum nights
 - Number of reviews
+- last_review
 - Review history
+- calculated_host_listings_count
 - Availability
 - Price as the target variable
 
-In this notebook, the dataset is loaded from Amazon S3 using `boto3`. [file:235]
+In this notebook, the dataset is loaded from Amazon S3 using `boto3`.
 
 ## Preprocessing and Feature Engineering
 
@@ -51,7 +52,8 @@ The following steps were applied in the notebook:
   - `neighbourhood`
   - `neighbourhood_group`
   - `room_type`
-- Dropped `name` and `host_name` before modeling. [file:235]
+- Dropped `name` and `host_name` before modeling.
+- removed `price` column from the df and used it - as `y` for the target variable.
 
 ## Models Trained
 
@@ -59,14 +61,14 @@ The following models were trained and compared:
 
 - Linear Regression
 - RandomForestRegressor
-- XGBoost Regressor [file:235]
+- XGBoost Regressor
 
 ## Evaluation Metrics
 
 Model performance was evaluated using:
 
 - Mean Absolute Error (MAE)
-- R2 Score [file:235]
+- R2 Score
 
 ## Results
 
@@ -74,11 +76,11 @@ The notebook results show the following model comparison:
 
 | Model | Train MAE | Train R2 | Test MAE | Test R2 |
 |---|---:|---:|---:|---:|
-| XGBoost [file:235] | 29.552 [file:235] | 0.638 [file:235] | 31.454 [file:235] | 0.587 [file:235] |
-| RandomForestRegressor [file:235] | 11.667 [file:235] | 0.942 [file:235] | 31.440 [file:235] | 0.582 [file:235] |
-| LinearRegression [file:235] | 33.957 [file:235] | 0.536 [file:235] | 34.257 [file:235] | 0.526 [file:235] |
+| XGBoost| 29.552| 0.638| 31.454 | 0.587 |
+| RandomForestRegressor | 11.667| 0.942  | 31.440| 0.582  |
+| LinearRegression | 33.957 | 0.536 | 34.257 | 0.526 |
 
-Based on the highest test R2, **XGBoost** was selected as the best model. The notebook then registers the best model in MLflow under the name `AirbnbPricePredictor`. [file:235]
+Based on the highest test R2, **XGBoost** was selected as the best model. The notebook then registers the best model in MLflow under the name `AirbnbPricePredictor`.
 
 ## MLflow Tracking
 
@@ -89,7 +91,7 @@ MLflow was used to:
 - Log training and testing metrics.
 - Save model artifacts.
 - Compare model runs.
-- Register the best model in the Model Registry. [file:235]
+- Register the best model in the Model Registry.
 
 ## Repository Structure
 
@@ -100,8 +102,8 @@ project-folder/
 ├── README.md
 ├── requirements.txt
 ├── .gitignore
-├── mlruns/                 # generated locally by MLflow
-└── data/                   # optional local data folder
+├── mlruns/                 
+└── data/                   
 ```
 
 ## Workflow
@@ -119,7 +121,7 @@ The workflow used in this project is:
 9. Train Linear Regression, Random Forest, and XGBoost models.
 10. Track all model runs in MLflow.
 11. Compare run metrics.
-12. Register the best model. [file:235]
+12. Register the best model.
 
 ## Setup Instructions
 
@@ -130,27 +132,13 @@ git clone <your-repository-url>
 cd <your-repository-folder>
 ```
 
-### 2. Create and activate a virtual environment
-
-#### Windows
-```bash
-python -m venv .venv
-.venv\Scripts\activate
-```
-
-#### macOS / Linux
-```bash
-python -m venv .venv
-source .venv/bin/activate
-```
-
-### 3. Install dependencies
+### 2. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Launch Jupyter
+### 3. Launch Jupyter
 
 ```bash
 jupyter notebook
@@ -176,28 +164,30 @@ Then open:
 http://127.0.0.1:5000
 ```
 
-Your notebook currently uses a local file-based MLflow tracking URI, which stores runs inside the `mlruns` folder. [file:235]
+The notebook currently uses a local file-based MLflow tracking URI, which stores runs inside the `mlruns` folder.
 
 ## Screenshots
 
 ### MLflow Experiment Runs
-[Insert screenshot of MLflow experiment runs here]
+![MLflow experiment runs](experiment-runs.png)
 
 ### MLflow Metrics Comparison
-[Insert screenshot of MLflow metrics comparison here]
+![LR-MLflow metrics comparison](metrics-lr.png)
+![XGB-MLflow metrics comparison](metrics-xgb.png)
+![RF-MLflow metrics comparison](metrics-rf.png)
+![BEST-MLflow metrics comparison](best-metrics-xgb.png)
 
 ### MLflow Model Registry
-[Insert screenshot of MLflow Model Registry showing `AirbnbPricePredictor` here]
+[MLflow Model Registry showing `AirbnbPricePredictor`](model-registry.png)
 
 ## Key Insights and Observations
 
-- Linear Regression provided the weakest baseline performance on the test set. [file:235]
-- Random Forest achieved strong performance, but the large gap between training and testing metrics suggests stronger overfitting than XGBoost. [file:235]
-- XGBoost achieved the best overall test R2 and was chosen as the final model. [file:235]
-- MLflow made it easier to compare models consistently and store the final registered model. [file:235]
-
+- Linear Regression provided the weakest baseline performance on the test set.
+- Random Forest achieved strong performance, but the large gap between training and testing metrics suggests stronger overfitting than XGBoost.
+- XGBoost achieved the best overall test R2 and was chosen as the final model.
+- MLflow made it easier to compare models consistently and store the final registered model.
 ## Notes
 
-- The notebook includes package installation commands for `boto3`, `pandas`, `xgboost`, and `mlflow`. [file:235]
-- A `requirements.txt` file was generated in the notebook using `pip freeze`. [file:235]
-- For security, AWS credentials should not be committed to the repository and should be moved to environment variables or a secure secret manager. [file:235]
+- The notebook includes package installation commands for `boto3`, `pandas`, `xgboost`, and `mlflow`.
+- A `requirements.txt` file was generated in the notebook using `pip freeze`.
+- For security, AWS credentials should not be committed to the repository so the user should use their own credentials.
