@@ -179,7 +179,7 @@ The notebook currently uses a local file-based MLflow tracking URI, which stores
 ![BEST-MLflow metrics comparison](img/best-metrics-xgb.png)
 
 ### MLflow Model Registry
-[MLflow Model Registry showing `AirbnbPricePredictor`](img/model-registry.png)
+![MLflow Model Registry showing `AirbnbPricePredictor`](img/model-registry.png)
 
 ## Key Insights and Observations
 
