@@ -103,7 +103,8 @@ project-folder/
 ├── requirements.txt
 ├── .gitignore
 ├── mlruns/                 
-└── data/                   
+├── data/
+└── img/                   
 ```
 
 ## Workflow
@@ -169,16 +170,16 @@ The notebook currently uses a local file-based MLflow tracking URI, which stores
 ## Screenshots
 
 ### MLflow Experiment Runs
-![MLflow experiment runs](experiment-runs.png)
+![MLflow experiment runs](img/experiment-runs.png)
 
 ### MLflow Metrics Comparison
-![LR-MLflow metrics comparison](metrics-lr.png)
-![XGB-MLflow metrics comparison](metrics-xgb.png)
-![RF-MLflow metrics comparison](metrics-rf.png)
-![BEST-MLflow metrics comparison](best-metrics-xgb.png)
+![LR-MLflow metrics comparison](img/metrics-lr.png)
+![XGB-MLflow metrics comparison](img/metrics-xgb.png)
+![RF-MLflow metrics comparison](img/metrics-rf.png)
+![BEST-MLflow metrics comparison](img/best-metrics-xgb.png)
 
 ### MLflow Model Registry
-[MLflow Model Registry showing `AirbnbPricePredictor`](model-registry.png)
+[MLflow Model Registry showing `AirbnbPricePredictor`](img/model-registry.png)
 
 ## Key Insights and Observations
 
