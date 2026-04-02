@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+.venv/
+venv/
+env/
+
+mlruns/
+mlartifacts/
+mlflow.db
+mlruns.db
+
+*.csv
+.DS_Store
+.vscode/
+.idea/
